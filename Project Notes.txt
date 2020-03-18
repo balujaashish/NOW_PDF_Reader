@@ -1,0 +1,33 @@
+Python 3.7.4
+pip 19.2.3
+
+----------------------------------------------------------------------------------------------
+                        virtual environment and pipenv      
+----------------------------------------------------------------------------------------------
+1. create a new app NOW-PDF_Reader
+
+2. create virtual environment for proper cloth
+                [ python -m venv NOW-PDF ]
+    -> activare virtual environment:
+                [ .\NOW-PC\Scripts\activate ]
+    -> deactivate virtual environment: 
+                [ deactivate ]
+
+3. install pipenv for managing versions of library used in this project:
+                [ pip install pipenv ]
+        
+    -> to install a new package use:
+                [ pipenv install requests ]
+
+----------------------------------------------------------------------------------------------
+                                GIT     
+----------------------------------------------------------------------------------------------
+
+1. install git https://git-scm.com/download/win
+
+2. create a new repo in github
+
+3. connect local foder to github repo
+    -> open command prompt and go to the folder: 
+                [ cd C:\Users\Win10Office2016\Desktop\Python-Proj\NOW-proper-cloth ]
+    
