@@ -30,4 +30,28 @@ pip 19.2.3
 3. connect local foder to github repo
     -> open command prompt and go to the folder: 
                 [ cd C:\Users\Win10Office2016\Desktop\Python-Proj\NOW-proper-cloth ]
-    
+    -> create local git repo:
+                [ git init ]
+    -> add file to git local repo:
+                [ git add "Project Notes.txt" ]
+    -> commit the edite to local repo:
+                [ git commit -m "first commit"]
+
+    -> connect the git local to github:
+            path/url to github repository
+                [ git remote add origin https://github.com/balujaashish/NOW-PC.git] 
+
+    -> push files from local to github:
+            git push -u origin master
+
+
+
+    -> check modified files by:
+                [ git status ]
+
+    -> push changes to github:
+        add all files modified by:
+                [git add "file name"]
+                [git commit -m "message"]
+                [git push origin master]  
+        where master is the master branch.
