@@ -17,7 +17,7 @@ pip 19.2.3
                 [ pip install pipenv ]
         
     -> to install a new package use:
-                [ pipenv install requests ]
+                [ pip install requests ]
 
 ----------------------------------------------------------------------------------------------
                                 GIT     
@@ -55,3 +55,57 @@ pip 19.2.3
                 [git commit -m "message"]
                 [git push origin master]  
         where master is the master branch.
+
+----------------------------------------------------------------------------------------------
+                                install packages     
+----------------------------------------------------------------------------------------------
+        -> pip install pillow
+                pillow is a fork of pil
+        -> pip install pytesseract
+        -> pip install pdf2image
+
+
+----------------------------------------------------------------------------------------------
+                                docstring - comments to a function     
+----------------------------------------------------------------------------------------------
+
+"""
+    get address for a term in the database. this module searches the hierarchy and the string_value also search the terms in filter cuboid.
+
+    Args:
+        term (string): terms to be serched in database (comma seperated).
+        filters (int): filter cuboid ids(comma seperated)
+        flag_structure_only (int): where to search.
+            0 : search hierarchy and string_values.
+            1 : search hierarchy only
+        
+    Returns:
+        JSON: address of all matches
+"""
+----------------------------------------------------------------------------------------------
+                                unit testing     
+----------------------------------------------------------------------------------------------
+        => setup before we run each tests:
+                [def setup(self)]
+
+        => At the end of each unit tests reset the files as it was before.
+                [def teardown(self)]
+
+        => setup before we start unit testing:
+                [def setup(self)]
+
+        => At the end of unit testing reset the files as it was before we started unit testing.
+                [def teardown(self)]
+                
+        => Commands:
+                [assertEqual]
+                [assertTrue]
+
+        => assert exception:
+                []
+
+----------------------------------------------------------------------------------------------
+                                pdf ocr reader development notes     
+----------------------------------------------------------------------------------------------
+
+        ->

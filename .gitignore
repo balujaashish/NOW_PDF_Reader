@@ -1,1 +1,4 @@
 NOW-PDF/*
+.vscode/*
+PDF_OCR_Reader/__pycache__/*
+Pipfile
