@@ -5,7 +5,18 @@ class Search_List():
     def __init__(self):
         self.SC = String_Compare()
 
-    def binary_search(self, p_list, p_position, p_term):        
+    def binary_search(self, p_list, p_position, p_term):  
+        """
+        In a sorted array p_list sarch for p_term.
+
+        Args:
+            p_list (List 2-D): 2-D sorted list.
+            p_position (int): position of terms in a 2-D array(second dimension).
+            p_term (string): term we are searching.
+            
+        Returns:
+            2-D list of term occurances in p_list
+        """      
         p_position = p_position-1
         p_first, p_found_keyWords, p_found = 0, [], False
         p_last = len(p_list)-1
