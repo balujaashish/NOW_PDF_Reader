@@ -23,7 +23,7 @@ class testSortList(unittest.TestCase):
         i = 0
         len_y = len(y)
         while i < len_y-1:
-            self.assertGreaterEqual(y[i+1][l_position-1],y[i][l_position-1])
+            self.assertGreaterEqual(y[i+1][l_position-1].lower(),y[i][l_position-1].lower())
             i = i+1
         
 

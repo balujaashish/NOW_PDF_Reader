@@ -2,15 +2,17 @@ import unittest
 from Intersect_lists import Intersect_Lists
 from operator import itemgetter
 from multiprocessing import Queue
+from Sort_list import sort_List
 
 
 class testINtersectLists(unittest.TestCase):
 
     def setUp(self):
         self.x = Intersect_Lists()
+        self.sl = sort_List()
         self.l = [[1,3,'fwf'], [2,3,'hd'], [3,3,'iosd'], [4,3,'kFf'], [5,3,'sndsfkmsS'], [6,3,'YSDVG'],[7,3,'kFf'], [8,3,'dffv'],[9,3,'8834'], [10,3,'iosd'], [11,3,'kFf'],[12,3,'8834']]
         self.p = 3
-        self.l = sorted(self.l, key=itemgetter(self.p-1))
+        self.l = self.sl.sort_2D_list(self.l,self.p)
         self.y =  {(1,4,'a'): [[1,1,'kFf'],[2,1,'8834']],(2,4,'b'):[[1,2,'nkrnr'], [2,2,'sndsfkmsS']],(3,4,'c'):[[1,3,'kFf'], [2,3,'sndsfkmsS']]}
         self.key_position = 3
 
@@ -89,6 +91,7 @@ class testINtersectLists(unittest.TestCase):
         while not l_result.empty():
             l_jk = l_result.get()
             out_put.update(l_jk)  
+        print(out_put)
         self.assertEqual(out_put,{(1, 4, 'a'): [[[1, 1, 'kFf'], [4, 3, 'kFf'], [7, 3, 'kFf'], [11, 3, 'kFf']], [[2, 1, '8834'], [9, 3, '8834'], [12, 3, '8834']]], (2, 4, 'b'): [[[2, 2, 'sndsfkmsS'], [5, 3, 'sndsfkmsS']]], (3, 4, 'c'): [[[1, 3, 'kFf'], [4, 3, 'kFf'], [7, 3, 'kFf'], [11, 3, 'kFf']], [[2, 3, 'sndsfkmsS'], [5, 3, 'sndsfkmsS']]]})
         self.assertEqual(out_put[(1,4,'a')],[[[1, 1, 'kFf'], [4, 3, 'kFf'], [7, 3, 'kFf'], [11, 3, 'kFf']], [[2, 1, '8834'], [9, 3, '8834'], [12, 3, '8834']]])
         self.assertEqual(out_put[(2,4,'b')],[[[2, 2, 'sndsfkmsS'], [5, 3, 'sndsfkmsS']]])

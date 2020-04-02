@@ -22,9 +22,10 @@ class String_Compare():
             enum.
         """
         try:
-            if str1 == str2: return 1
-            elif str1 > str2: return 2
-            elif str1 < str2: return 3
+            
+            if str1.lower() == str2.lower(): return 1
+            elif str1.lower() > str2.lower(): return 2
+            elif str1.lower() < str2.lower(): return 3
         except:
             return 0
 

@@ -17,7 +17,11 @@ class sort_List():
         Returns:
             sorted List or tuple
         """
-        return sorted(p_list,key=itemgetter(p_position-1))
+        self.p = p_position
+        return sorted(p_list,key=self.l_key)
+
+    def l_key(self,e):
+        return e[self.p-1].lower()
 
     
     

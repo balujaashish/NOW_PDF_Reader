@@ -22,6 +22,12 @@ class testStringComapare(unittest.TestCase):
         str1 = []
         str2 = 'ffwe'
         self.assertEqual(self.x.str_compare(str1,str2),0)
+        str1 = 'ffwe'
+        str2 = 'Ffwe'
+        self.assertEqual(self.x.str_compare(str1,str2),1)
+        str1 = 'KH87HG6'
+        str2 = 'kh87hg6'
+        self.assertEqual(self.x.str_compare(str1,str2),1)
 
     
 

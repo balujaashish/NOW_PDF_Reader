@@ -38,7 +38,7 @@ class TestPDFReader(unittest.TestCase):
 
     def test_Read(self):
         data = self.x.read(self.FilePath+"test2.pdf")
-        print(data)
+        # print(data)
         self.assertEqual(data[0][5][11],'Name:')
         self.assertEqual(data[0][6][11],'Ashish')
         self.assertEqual(data[1][5][11],'Last')
