@@ -1,4 +1,4 @@
-
+import string
 
 class String_Compare():
     
@@ -22,11 +22,27 @@ class String_Compare():
             enum.
         """
         try:
-            
-            if str1.lower() == str2.lower(): return 1
-            elif str1.lower() > str2.lower(): return 2
-            elif str1.lower() < str2.lower(): return 3
+            str1 = self.str_prepare(str1)
+            str2 = self.str_prepare(str2)
+            if str1 == str2: return 1
+            elif str1 > str2: return 2
+            elif str1 < str2: return 3
         except:
             return 0
 
+
+
+    def str_prepare(self, p_str):
+        #  trim string
+        p_str = p_str.strip()
+        # strip punctuation 
+        p_str = self.strip_punctuations(p_str)
+        # cast string to lower case
+        p_str = p_str.lower()
+
+        return p_str
+
+    def strip_punctuations(self, p_str):
+        table = str.maketrans('', '', string.punctuation)
+        return p_str.translate(table)
     
