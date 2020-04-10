@@ -21,7 +21,12 @@ class sort_List():
         return sorted(p_list,key=self.l_key)
 
     def l_key(self,e):
-        return e[self.p-1].lower()
+        # if key is string covert to lower
+        if type(e[self.p-1]) == str:
+            return e[self.p-1].lower()
+        # handle for int and other types
+        else:
+            return e[self.p-1]
 
     
     

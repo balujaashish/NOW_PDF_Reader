@@ -26,6 +26,12 @@ class testSortList(unittest.TestCase):
             self.assertGreaterEqual(y[i+1][l_position-1].lower(),y[i][l_position-1].lower())
             i = i+1
         
+        l_list = [[1,1,3], [1,1,394], [1,1,9],  [1,1,10]]
+        l_position = 3
+        y = self.x.sort_2D_list(l_list,l_position)
+        self.assertEqual(y,[[1, 1, 3], [1, 1, 9], [1, 1, 10], [1, 1, 394]])
+        self.assertGreaterEqual(y[2][l_position-1],y[1][l_position-1])
+        
 
 
         
