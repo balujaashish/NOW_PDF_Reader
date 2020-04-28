@@ -26,8 +26,8 @@ class Token_Network():
             dictionary
         """
         # {[5, 1, 9, 1, 1, 1, 263, 2563, 244, 43, '96', 'Comment']: [[5, 1, 7, 1, 1, 1, 264, 2212, 223, 55, '93', 'Payment'],[5, 1, 7, 1, 2, 1, 264, 2304, 109, 41, '95', 'NET']] } 
-        DC = Data_Cleaner()
-        p_data = DC.clean_pdf_data(p_data, p_get_term, p_indexes)
+        # DC = Data_Cleaner()
+        # p_data = DC.clean_pdf_data(p_data, p_get_term, p_indexes)
         output = self.get_aligned_terms(p_data,p_get_top, p_get_left, p_get_width, p_get_height)
         output = self.sort_by_distance(output, self.get_distance)
         return output

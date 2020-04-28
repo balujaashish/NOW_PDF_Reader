@@ -1,12 +1,13 @@
 from String_compare import String_Compare
 from term_proximity import Term_Proximity
+from token_network import Token_Network
 
 
 class Phrase_Search():
     def __init__(self):
         pass
 
-    def search(self, p_data, p_term, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance, i, listTest = None, matches = None, covered = None ):
+    def search(self, p_network, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance):
         """
         returns a list of tokens that match the phrase tokens.
 
@@ -27,15 +28,21 @@ class Phrase_Search():
             list of terms that match the phrase tokens.
 
         """
+        out_put = []
+        search_result = self.search_first_term_phrase(p_network, p_phrase_tokens, p_get_term)
         if len(p_phrase_tokens) >1:
-            out_put = self.search_phrase_in_document_network (p_data, p_term, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance, i, listTest = None, matches = None, covered = None )
-            return self.reverse_list_from_index(out_put,1)
+            for key in search_result:
+                match = self.search_phrase_in_document_network (p_network, key, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance)
+                if match:
+                    out_put.append(match)
         else:
-            return [p_term]
+            for key in search_result:
+                out_put.append([key])
+        return out_put
 
 
 
-    def search_phrase_in_document_network (self, p_data, p_term, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance, i, listTest = None, matches = None, covered = None ):
+    def search_phrase_in_document_network (self, p_data, p_term, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance):
         """
         returns a list of tokens that match the phrase tokens.
 
@@ -56,55 +63,57 @@ class Phrase_Search():
             list of terms that match the phrase tokens.
 
         """
-        if(listTest == None):
-            listTest = []   
-        if (matches == None) :
-            matches = []
-        if (covered == None) :
-            covered = []
+        listTest = []   
+        matches = []
+        covered = []
         sc = String_Compare()
         TP = Term_Proximity()
-        if i < len(p_phrase_tokens)-2:
+        i = 0
+        found = True
+        while  i < len(p_phrase_tokens)-1 and found == True:
             matches = self.add_to_match(matches, TP.get_all_terms_in_proximity(p_data[p_term], p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_term, p_distance))
-            for match in matches:
-                if match not in covered:
-                    if sc.str_compare_basic(p_get_term(match[0]), p_phrase_tokens[i+1]) == 1:
-                        matches.remove(match)
-                        covered.append(match)
-                        if not listTest:
-                            listTest.append(p_term)
-                        if (self.search_phrase_in_document_network(p_data,tuple(match[0]),p_phrase_tokens,p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance, i+1, listTest, matches, covered)):
-                            listTest.append(match)    
-        else:
-            matches = self.add_to_match(matches, TP.get_all_terms_in_proximity(p_data[p_term], p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_term, p_distance))
-            
-            for match in matches:
-                if i < len(p_phrase_tokens)-1:
+            if matches:
+                for match in matches:
                     if match not in covered:
                         if sc.str_compare_basic(p_get_term(match[0]), p_phrase_tokens[i+1]) == 1:
+                            found = True
+                            matches.remove(match)
                             covered.append(match)
                             if not listTest:
                                 listTest.append(p_term)
-                            listTest.append(match)
+                            listTest.append(match) 
                             i = i + 1
+                            p_term = tuple(match[0])
+                            break  
+                        else: 
+                            found = False 
+            else: return []
                     
         return listTest
     
 
     def add_to_match(self, p_list, p_term):
+        # remove if term already exits and add again, this will get the distance 
+        # and direction from last term matched
+        # reverse the list of terms to be added so thatnearest term comes first in match
         p_term.reverse()
         for term in p_term:
-            found = False
             for l in p_list:
                 if l[0] == term[0]:
-                    found = True
-            if found == False:
-                p_list = [term] + p_list
+                    p_list.remove(l)
+            p_list = [term] + p_list
         return p_list
 
     
     def reverse_list_from_index(self, list1, i):
-        list2 = list1[i:]
-        list2.reverse()
-        list1[i:] = list2
+        if i < len(list1):
+            list2 = list1[i:]
+            list2.reverse()
+            list1[i:] = list2
         return(list1)
+
+
+    def search_first_term_phrase(self, p_network, p_phrase_tokens, p_get_term):
+        TN = Token_Network()
+        search_result = TN.search_neighbor_map(p_network, p_phrase_tokens[0], p_get_term)
+        return search_result
