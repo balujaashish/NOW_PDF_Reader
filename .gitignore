@@ -3,3 +3,5 @@ NOW-PDF/*
 PDF_OCR_Reader/__pycache__/*
 Pipfile
 PDF_OCR_Reader.zip
+PDF_OCR_Reader/z_test_data.py
+PDF_OCR_Reader/z_test_pdf_ocr_reader.py
