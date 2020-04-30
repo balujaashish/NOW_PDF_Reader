@@ -93,7 +93,7 @@ class testTokenNetwork(unittest.TestCase):
         [3, 1001, 284, 558, 76, 88, 'AE10071871'],
         [2, 376, 558, 234, 53, 95, 'purchase']]
 
-        left_i, top_i, width_i, height_i = 2, 3, 4, 5
+        # left_i, top_i, width_i, height_i = 2, 3, 4, 5
 
         out_put = self.x.get_horizontal_align_direction(l[0], l[1], self.get_left, self.get_width)
         self.assertEqual(out_put, ('right', 32))

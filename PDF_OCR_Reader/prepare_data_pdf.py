@@ -18,7 +18,14 @@ class Prepare_Data_PDF():
         Returns:
             term network in pdf
         """
-        
+        # split terms if they can be split
+        out_put = self.pdf_data_tokenize(p_data, self.get_term_index(), self.get_term, p_ml_flag)
+        # get the term network
+        out_put = self.get_term_network(out_put, self.get_indexes_with_pixel_info(), self.get_top, self.get_left, self.get_width, self.get_height, self.get_term)
+        return out_put
+
+
+    def clean_data(self, p_data):
         # add page height, pytesseract doesnt know about pages it just reads each image idividually,
         # when we build network we need to build it for all pages, thus height must be
         # added to differentiate betweeen pages
@@ -29,20 +36,9 @@ class Prepare_Data_PDF():
         for d in p_data:
             l_data = l_data+ d[1:]
 
-        # clean pdf data: remove blanks and convert string to int where needed.
-        l_data = self.clean_data(l_data)
-
-        # split terms if they can be split
-        out_put = self.pdf_data_tokenize(l_data, self.get_term_index(), self.get_term, p_ml_flag)
-        # get the term network
-        out_put = self.get_term_network(out_put, self.get_indexes_with_pixel_info(), self.get_top, self.get_left, self.get_width, self.get_height, self.get_term)
-        return out_put
-
-
-    def clean_data(self, p_data):
         DC = Data_Cleaner()
-        p_data = DC.clean_pdf_data(p_data, self.get_term, self.get_indexes_with_pixel_info())
-        return p_data
+        l_data = DC.clean_pdf_data(l_data, self.get_term, self.get_indexes_with_pixel_info())
+        return l_data
          
     def get_term_network(self, p_data, indexes, get_top, get_left, get_width, get_height, get_term):
         TN = Token_Network()
