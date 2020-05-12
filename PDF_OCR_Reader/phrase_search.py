@@ -7,7 +7,7 @@ class Phrase_Search():
     def __init__(self):
         pass
 
-    def search(self, p_network, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance):
+    def search(self, PDF_Info, p_phrase_tokens, p_distance):
         """
         returns a list of tokens that match the phrase tokens.
 
@@ -29,10 +29,10 @@ class Phrase_Search():
 
         """
         out_put = []
-        search_result = self.search_first_term_phrase(p_network, p_phrase_tokens, p_get_term)
+        search_result = self.search_first_term_phrase(PDF_Info.network, p_phrase_tokens, PDF_Info.get_term)
         if len(p_phrase_tokens) >1:
             for key in search_result:
-                match = self.search_phrase_in_document_network (p_network, key, p_phrase_tokens, p_get_term, p_get_direction, p_get_distance, p_get_order_key, p_get_order_value, p_distance)
+                match = self.search_phrase_in_document_network (PDF_Info.network, key, p_phrase_tokens, PDF_Info.get_term, PDF_Info.get_direction, PDF_Info.get_distance, PDF_Info.get_order_term, PDF_Info.get_order_value, p_distance)
                 if match:
                     out_put.append(match)
         else:

@@ -136,3 +136,12 @@ class Token_Network():
         for l_key in p_data:
             p_data[l_key] = sorted(p_data[l_key],key=p_key)
         return p_data
+
+    def get_matching_key(self, network, get_indexes_with_pixel_info, term):
+        for key in network:
+            match = True
+            for i in get_indexes_with_pixel_info():
+                if term[i] != key[i]:
+                    match = False
+            if match == True:
+                return key

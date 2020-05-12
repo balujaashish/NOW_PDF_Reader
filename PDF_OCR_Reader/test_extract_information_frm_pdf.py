@@ -2,6 +2,7 @@ import unittest
 from extract_information_frm_pdf import Extract_Information_Frm_PDF
 import z_test_data
 from prepare_data_pdf import Prepare_Data_PDF
+from PDF_information import PDF_Information
 
 class testExtractInformationFrmPDF(unittest.TestCase):
 
@@ -35,17 +36,18 @@ class testExtractInformationFrmPDF(unittest.TestCase):
         self.assertEqual(out_put, [['a']])
         # print(out_put)
 
-    def test_extract_keywords_frm_PDF(self):
-        l_dict =  {(2000010, 838, 8389,'Purchase Order Number'): [[9829,939, 883,'AE10071871'],[9829,939,921,'fhc']],(2000011, 839, 8390,'Addresses'):[[9830,940, 884,'BOARDWALKTECH, INC 10050 N. Wolfe Rd. #276 Cupertino , CA 95014 United States'], [9831,941, 885,'Teva Bazel 5 5 Bazel St. 4951033 Petah Tikva Israel']],(2000011, 839, 8390,'keywords'):[[9830,940, 884,'Amount'], [9830,940, 884,'Qty (Unit)']]}
-        data = [z_test_data.pdf_test_data1]
 
+    def test_extract_keywords_frm_PDF(self):
+        PDF_I = PDF_Information()
+        l_dict =  {(2000010, 838, 8389,'Purchase Order Number'): [[9829,939, 883,'AE10071871'],[9829,939,921,'fhc']],(2000011, 839, 8390,'Addresses'):[[9830,940, 884,'BOARDWALKTECH, INC 10050 N. Wolfe Rd. #276 Cupertino , CA 95014 United States'], [9831,941, 885,'Teva Bazel 5 5 Bazel St. 4951033 Petah Tikva Israel']],(2000011, 839, 8390,'keywords'):[[9830,940, 884,'Amount'], [9830,940, 884,'Qty (Unit)']]}
+        PDF_I.rawData = [z_test_data.pdf_test_data1]
         PDP = Prepare_Data_PDF()
         # clean pdf data: remove blanks and convert string to int where needed.
-        l_data = PDP.clean_data(data)
+        PDP.clean_data(PDF_I)
         # get network of term(all terms that allign with a term)
-        net_work = PDP.get_pdf_network(l_data, 0) 
+        PDP.get_pdf_network(PDF_I, 0) 
         distance= 50
-        out_put = self.x.extract_keywords_frm_PDF(net_work, l_dict, 1,distance)
+        out_put = self.x.extract_keywords_frm_PDF(PDF_I, l_dict, 1,distance)
         self.assertEqual(out_put[('AE10071871', ('ae10071871',))], [[(5, 1, 1, 1, 1, 3, 1001, 284, 558, 76, 88, 'AE10071871', 0)], [(5, 1, 5, 4, 1, 8, 3653, 1515, 321, 42, 88, 'AE10071871', 0)]])
 
         self.assertEqual(out_put[('BOARDWALKTECH, INC 10050 N. Wolfe Rd. #276 Cupertino , CA 95014 United States', ('boardwalktech', ',', 'inc', '10050', 'n', '.', 'wolfe', 'rd', '.', '#', '276', 'cupertino', ',', 'ca', '95014', 'united', 'states'))], [[(5, 1, 5, 2, 1, 4, 2128, 1365, 531, 52, 89, 'boardwalktech', 0), [[5, 1, 5, 2, 1, 4, 2128, 1365, 531, 52, 89, ',', 1], ('equal', 0)], [[5, 1, 5, 2, 1, 5, 2682, 1365, 94, 44, 95, 'INC', 0], ('right', 23)], [[5, 1, 5, 3, 1, 4, 2131, 1447, 150, 42, 96, '10050', 0], ('down', 30)], [[5, 1, 5, 3, 1, 5, 2304, 1447, 48, 41, 96, 'n', 0], ('right', 23)], [[5, 1, 5, 3, 1, 5, 2304, 1447,
