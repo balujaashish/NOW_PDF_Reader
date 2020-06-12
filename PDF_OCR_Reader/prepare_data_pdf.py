@@ -1,6 +1,6 @@
-from String_compare import String_Compare
-from token_network import Token_Network
-from Data_cleaner import Data_Cleaner
+from PDF_OCR_Reader.String_compare import String_Compare
+from PDF_OCR_Reader.token_network import Token_Network
+from PDF_OCR_Reader.Data_cleaner import Data_Cleaner
 
 class Prepare_Data_PDF():
 
@@ -38,7 +38,7 @@ class Prepare_Data_PDF():
             l_data = l_data+ d[1:]
 
         DC = Data_Cleaner()
-        PDF_Info.cleanData = DC.clean_pdf_data(l_data, PDF_Info.get_term, PDF_Info.get_indexes_with_pixel_info())
+        PDF_Info.cleanData = DC.clean_pdf_data(l_data, PDF_Info.get_term, PDF_Info.get_top, PDF_Info.get_left, PDF_Info.get_height, PDF_Info.get_width, PDF_Info.get_indexes_with_pixel_info(), PDF_Info.get_num_elements())
          
     
 

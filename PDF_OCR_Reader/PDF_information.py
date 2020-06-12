@@ -1,4 +1,15 @@
-
+# 00:'level'
+# 01:'page_num'
+# 02:'block_num'
+# 03:'par_num'
+# 04:'line_num'
+# 05:'word_num'
+# 06:'left'
+# 07:'top'
+# 08:'width'
+# 09:'height'
+# 10:'conf'
+# 11:'text'
 class PDF_Information():
     def __init__(self):
         self.rawData = []
@@ -12,7 +23,9 @@ class PDF_Information():
         self.dates = []
         self.PDF_Lines = []
 
-    
+
+    def get_num_elements(self):
+        return 12
 
     def get_order_term(self, e):
         return e[12]
@@ -60,7 +73,18 @@ class PDF_Information():
     def get_width(self, e):
         return e[8]
 
+    def get_page_height(self):
+        return 100000
+
 
     
-        
-
+    def get_matching_key(self, term):
+        out_put = []
+        for key in self.network:
+            match = True
+            for i in self.get_indexes_with_pixel_info():
+                if term[i] != key[i]:
+                    match = False
+            if match == True:
+                out_put.append(list(key))
+        return out_put

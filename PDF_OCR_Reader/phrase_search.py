@@ -1,6 +1,6 @@
-from String_compare import String_Compare
-from term_proximity import Term_Proximity
-from token_network import Token_Network
+from PDF_OCR_Reader.String_compare import String_Compare
+from PDF_OCR_Reader.term_proximity import Term_Proximity
+from PDF_OCR_Reader.token_network import Token_Network
 
 
 class Phrase_Search():

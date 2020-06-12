@@ -1,4 +1,4 @@
-from String_compare import String_Compare
+from PDF_OCR_Reader.String_compare import String_Compare
 
 
 class Prepare_Data_Keywords():

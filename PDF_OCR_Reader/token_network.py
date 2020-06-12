@@ -1,7 +1,7 @@
 # class to create and manage token network.
 # token netwrok is a netwrok of tokens that allign either horizontally or vertically
-from Data_cleaner import Data_Cleaner
-from String_compare import String_Compare
+from PDF_OCR_Reader.Data_cleaner import Data_Cleaner
+from PDF_OCR_Reader.String_compare import String_Compare
 
 class Token_Network():
 

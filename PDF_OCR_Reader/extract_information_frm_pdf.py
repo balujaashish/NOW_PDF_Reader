@@ -1,11 +1,11 @@
 
-from prepare_data_keywords import Prepare_Data_Keywords
-from PDF_reader import PDF_Reader
-from prepare_data_pdf import Prepare_Data_PDF
-from phrase_search import Phrase_Search
-from PDF_information import PDF_Information
-from extract_currency_frm_pdf import Extract_Currency_Frm_PDF
-from extract_dates_frm_pdf import Extract_Dates_Frm_PDF
+from PDF_OCR_Reader.prepare_data_keywords import Prepare_Data_Keywords
+from PDF_OCR_Reader.PDF_reader import PDF_Reader
+from PDF_OCR_Reader.prepare_data_pdf import Prepare_Data_PDF
+from PDF_OCR_Reader.phrase_search import Phrase_Search
+from PDF_OCR_Reader.PDF_information import PDF_Information
+from PDF_OCR_Reader.extract_currency_frm_pdf import Extract_Currency_Frm_PDF
+from PDF_OCR_Reader.extract_dates_frm_pdf import Extract_Dates_Frm_PDF
 
 class Extract_Information_Frm_PDF():
     def __init__(self):
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     l_dict =  {(2000010, 838, 8389,'Purchase Order Number'): [[9829,939, 883,'6000567751'],[9829,939,921,'fhc']],(2000011, 839, 8390,'Addresses'):[[9830,940, 884,'BOARDWALKTECH, INC 10050 N. Wolfe Rd. #276 Cupertino , CA 95014 United States'], [9831,941, 885,'Teva Bazel 5 5 Bazel St. 4951033 Petah Tikva Israel']],(2000011, 839, 8390,'keywords'):[[9830,940, 884,'Amount'], [9830,940, 884,'PART NUMBER']]}
 
     FilePath = "C:/Users/Win10Office2016/Desktop/Python-Proj/NOW-PDF_Reader/Test_Files/"
-    FilePath = FilePath+"teva po.pdf"
+    FilePath = FilePath+"Order No 6000567751.pdf"
 
     distance= 50
     p_currency_distance = 200
@@ -139,35 +139,42 @@ if __name__ == "__main__":
     EIFP = Extract_Information_Frm_PDF()
     out_put = EIFP.extract_information_frm_PDF(FilePath, l_dict, True, distance, p_currency_distance) 
     
-    print("----------------------------------------------------------")
-    print("--------------------dates---------------------------------")
-    print("----------------------------------------------------------")
-    print(out_put.dates)
+    # print("----------------------------------------------------------")
+    # print("--------------------dates---------------------------------")
+    # print("----------------------------------------------------------")
+    # print(out_put.dates)
+
+    # print("----------------------------------------------------------")
+    # print("--------------------currency---------------------------------")
+    # print("----------------------------------------------------------")
+    # print(out_put.Currency)
+
+    # print("----------------------------------------------------------")
+    # print("--------------------lines---------------------------------")
+    # print("----------------------------------------------------------")
+    # print(out_put.PDF_Lines)
+
+    # print("----------------------------------------------------------")
+    # print("--------------------keywords---------------------------------")
+    # print("----------------------------------------------------------")
+    # print(out_put.keywords)
+
+    # print("----------------------------------------------------------")
+    # print("--------------------integers---------------------------------")
+    # print("----------------------------------------------------------")
+    # print(out_put.integers)
+
+    # print("----------------------------------------------------------")
+    # print("--------------------decimals---------------------------------")
+    # print("----------------------------------------------------------")
+    # print(out_put.decimals)
 
     print("----------------------------------------------------------")
-    print("--------------------currency---------------------------------")
+    print("--------------------clean data---------------------------------")
     print("----------------------------------------------------------")
-    print(out_put.Currency)
+    print(out_put.cleanData)
+    
 
-    print("----------------------------------------------------------")
-    print("--------------------lines---------------------------------")
-    print("----------------------------------------------------------")
-    for line in out_put.PDF_Lines:
-        print (line)
 
-    print("----------------------------------------------------------")
-    print("--------------------keywords---------------------------------")
-    print("----------------------------------------------------------")
-    for key in out_put.keywords:
-        print(key)
-        print (out_put.keywords[key])
 
-    print("----------------------------------------------------------")
-    print("--------------------integers---------------------------------")
-    print("----------------------------------------------------------")
-    print(out_put.integers)
-
-    print("----------------------------------------------------------")
-    print("--------------------decimals---------------------------------")
-    print("----------------------------------------------------------")
-    print(out_put.decimals)
+    

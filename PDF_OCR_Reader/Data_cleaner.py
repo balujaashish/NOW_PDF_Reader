@@ -21,7 +21,7 @@ class Data_Cleaner():
         pass
 
 
-    def clean_pdf_data(self, p_data, get_key, indexes):
+    def clean_pdf_data(self, p_data, get_key, get_top, get_left, get_height, get_width, indexes, p_num_element):
         """
         cleans data read from pdf:
             =>converts integer in string to int
@@ -36,7 +36,12 @@ class Data_Cleaner():
             2D-Array: with clean data
         """
         p_data = self.convert_string_to_int_at_indexes(p_data, indexes)
+        p_data = self.remove_incomplete_info(p_data, p_num_element)
         p_data = self.remove_blanks(p_data, get_key)
+        p_data = self.remove_zeros(p_data, get_height)
+        p_data = self.remove_zeros(p_data, get_top)
+        p_data = self.remove_zeros(p_data, get_left)
+        p_data = self.remove_zeros(p_data, get_height)
         return p_data
 
 
@@ -53,6 +58,34 @@ class Data_Cleaner():
         """
         l_Data = []
         [l_Data.append(row) for row in p_Data if get_key(row).strip() != '']
+        return l_Data
+
+
+    def remove_zeros(self, p_Data, get_key):
+        """
+        For an array remove blanks entries of data.
+        Args:
+            p_Data (2-D Array): Array of data from which we need to remove entries with Balnks.
+            p_Position (int): position in array that needs to be checked for an array.    
+        Returns:
+            Array with Blank entries removed
+        """
+        l_Data = []
+        [l_Data.append(row) for row in p_Data if get_key(row) != 0]
+        return l_Data
+
+
+    def remove_incomplete_info(self, p_Data, p_num_element):
+        """
+        For an array remove data where not all properties are there, eg for pdf number of items in each row is supposed to be 12
+        Args:
+            p_Data (2-D Array): Array of data from which we need to remove entries with Balnks.
+            p_Position (int): position in array that needs to be checked for an array.    
+        Returns:
+            Array with Blank entries removed
+        """
+        l_Data = []
+        [l_Data.append(row) for row in p_Data if len(row) == p_num_element]
         return l_Data
 
 

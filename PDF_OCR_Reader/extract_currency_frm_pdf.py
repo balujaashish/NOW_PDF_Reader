@@ -1,5 +1,5 @@
 from price_parser import Price
-from token_network import Token_Network
+from PDF_OCR_Reader.token_network import Token_Network
 
 
 class Extract_Currency_Frm_PDF():

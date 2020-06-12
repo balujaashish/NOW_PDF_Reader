@@ -1,5 +1,5 @@
-from prepare_data_keywords import Prepare_Data_Keywords
-from phrase_search import Phrase_Search
+from PDF_OCR_Reader.prepare_data_keywords import Prepare_Data_Keywords
+from PDF_OCR_Reader.phrase_search import Phrase_Search
 
 import re
 
