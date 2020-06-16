@@ -56,6 +56,17 @@ class Extract_Dates_Frm_PDF():
                     out_put[line] = [m[0] for m in match]
         PDF_Info.dates = out_put
 
+    def search_dates_in_str(self, p_str):
+        regEx = r'(?:\d{1,2}[-/th|st|nd|rd\s]*)?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z\s,.]*(?:\d{1,2}[-/th|st|nd|rd)\s,]*)?(?:\d{2,4})'
+        regEx1 = r'(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})'
+        out_put = []
+        match = re.findall(regEx, p_str)  
+        if match:
+            out_put = match
+        match = re.findall(regEx1, p_str)  
+        if match:
+            out_put = out_put + [m[0] for m in match]
+        return out_put
     
     def get_unique_dates(self, PDF_Info):
         dates = {}

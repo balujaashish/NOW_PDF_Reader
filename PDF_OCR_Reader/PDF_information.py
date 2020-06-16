@@ -13,6 +13,8 @@
 class PDF_Information():
     def __init__(self):
         self.rawData = []
+        self.page_count = 0
+
         self.cleanData = []
         self.network = {}
         self.keywords = {}
@@ -22,6 +24,16 @@ class PDF_Information():
         self.decimals = []
         self.dates = []
         self.PDF_Lines = []
+
+        self.Boxes = {}
+        self.cells =[]
+        self.box_terms = {}
+        self.box_map = {}
+        self.box_currency = []
+        self.box_dates = []
+        self.box_numbers = []
+        self.box_decimals = []
+        self.box_keywords = []
 
 
     def get_num_elements(self):

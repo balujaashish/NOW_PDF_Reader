@@ -45,12 +45,12 @@ class PDF_Reader():
             l_data.append(self.Read_images_for_data(filename))           
 
         # Delete all image files
-        self.clear_image_files(l_image_counter)
+        # self.clear_image_files(l_image_counter)
 
         # Print the time taken to read text from pdf.
         print( int(time.time() - l_t ))
         
-        return l_data
+        return l_data, l_image_counter
 
 
 

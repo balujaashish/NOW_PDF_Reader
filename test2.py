@@ -1,13 +1,25 @@
-import pytesseract
-from PIL import Image 
-
-# p_image_file = 'C:/Users/Win10Office2016/Desktop/Python-Proj/NOW-PDF_Reader/page_1.jpg'
-# l_text = str((pytesseract.image_to_string(Image.open(p_image_file))))
-import requests 
-import io
-
-image_name = 'C:/Users/Win10Office2016/Desktop/Python-Proj/NOW-PDF_Reader/page_1.jpg'
-text = pytesseract.image_to_data(Image.open(image_name) )
+from PDF_OCR_Reader.String_compare import String_Compare
 
 
-print(text)
+def is_sublist(a, b):
+    if not a: return True
+    if not b: return False
+    return b[:len(a)] == a or is_sublist(a, b[1:])
+
+def is_substring(str1, str2):
+    sc = String_Compare()
+    str1 = sc.strip_punctuations(str1)
+    w1 = sc.prepare_phrase(str1,0)
+    str2 = sc.strip_punctuations(str2)
+    w2 = sc.prepare_phrase(str2,0)
+    print(w1)
+    print(w2)
+    if is_sublist(w2, w1):
+        return True
+    else: return False
+
+
+if __name__ == "__main__":
+    str1 = 'hs Light Trucks\n(0 - 10,000 Lbs.\n\nG.V.W.)'
+    str2 = 'Light Trucks (0 - 10,000 Lbs. G.V.W.)'
+    print(str_compare_with_tokenize(str1, str2))

@@ -53,6 +53,12 @@ class Extract_Currency_Frm_PDF():
             if p.amount or p.currency:
                 out_put.append([term, [p.currency,p.amount, p.amount_text]])
         PDF_Info.RawCurrency = out_put
+    
+    def search_currency_in_string(self, p_str):           
+        p = Price.fromstring(p_str)
+        if p.amount or p.currency:
+            return [p.currency,p.amount, p.amount_text]
+    
 
 
     def get_currency_in_proximity(self, PDF_Info, p_key, p_distance):

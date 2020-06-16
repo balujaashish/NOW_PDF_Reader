@@ -20,10 +20,24 @@ import sys
 from pdf2image import convert_from_path 
 import os 
 
+def get_tbl_frm_img(file, pdf_info):
+    l_t = time.time()   
+    pdf_info.Boxes = read_tbl_frm_image(file)
+
+    box = []
+    for key in pdf_info.Boxes:
+        box.append(key)
+
+    pdf_info.cells = get_cells(box)
+    pdf_info.box_terms = get_terms_in_boxes(pdf_info.cells, pdf_info)
+
+    pdf_info.box_map = get_box_map(pdf_info.cells)
+    print( int(time.time() - l_t ))
+
 
 #read your file C:\Users\Win10Office2016\Desktop\Python-Proj\tests\page_1.jpg
 def read_tbl_frm_image(p_file):
-    img = cv2.imread(file,0)
+    img = cv2.imread(p_file,0)
     img.shape
 
     #thresholding the image to a binary image
@@ -249,7 +263,7 @@ def get_cells(p_boxes):
 def get_terms_in_box(p_box, pdf_info):
     out_put = []
     for term in pdf_info.cleanData:
-        term_cord = [pdf_info.get_left(term), pdf_info.get_top(term), pdf_info.get_width(term), pdf_info.get_height(term)]
+        term_cord = [ pdf_info.get_top(term), pdf_info.get_left(term), pdf_info.get_width(term), pdf_info.get_height(term)]
         if is_box1_inside_box2(term_cord, p_box):
             out_put.append(term)
     return out_put
@@ -280,63 +294,82 @@ def get_height(e):
 if __name__ == "__main__":
 
     
-    l_t = time.time()
+    # l_t = time.time()
     
     file=r'C:/Users/Win10Office2016/Desktop/Python-Proj/tests/page_1.jpg'
-    out_put = read_tbl_frm_image(file)
-    for key in out_put:
-        print('-------------')
-        print(key, out_put[key])
+    # out_put = read_tbl_frm_image(file)
+    # for key in out_put:
+    #     print('-------------')
+    #     print(key, out_put[key])
 
     # ---------------------------------------------------------------------------------------------------------------------------
 
 
-    #Create list box to store all boxes in  
-    box = []
-    # Get position (x,y), width and height for every contour and show the contour on image
-    for key in out_put:
-        box.append(key)
+    # #Create list box to store all boxes in  
+    # box = []
+    # # Get position (x,y), width and height for every contour and show the contour on image
+    # for key in out_put:
+    #     box.append(key)
             
 
-    print('-------------------boxes-------------------------')
-    print(box)
-    print(len(box))
+    # print('-------------------boxes-------------------------')
+    # print(box)
+    # print(len(box))
 
 
-    cells = get_cells(box)
+    # cells = get_cells(box)
     
-    for cell in cells:
-        print('----------------------------------cell----------------------')
-        print(cell)
-        print(out_put[cell])
-    print(len(cells))
+    # for cell in cells:
+    #     print('----------------------------------cell----------------------')
+    #     print(cell)
+    #     print(out_put[cell])
+    # print(len(cells))
 
     # ---------------------------------------------------pdf_info-------------------------------------------------------
     pdf_info = PDF_Information()
     pdf_info.cleanData = [[5, 1, 1, 1, 1, 1, 681, 2770, 33, 25, 96, 'c.'],[5, 1, 1, 1, 1, 2, 732, 2762, 106, 42, 95, 'Long'],[5, 1, 1, 1, 1, 3, 856, 2761, 183, 34, 95, 'Distance'],[5, 1, 1, 1, 1, 4, 1057, 2761, 146, 34, 95, 'Radius'],[5, 1, 2, 1, 1, 1, 3031, 2848, 145, 34, 95, 'Radius'],[5, 1, 2, 1, 1, 2, 3193, 2848, 117, 34, 96, 'Class'],[5, 1, 3, 1, 1, 1, 1441, 2975, 196, 34, 95, 'Business'],[5, 1, 3, 1, 1, 2, 1655, 2975, 78, 34, 96, 'Use'],[5, 1, 3, 1, 1, 3, 2837, 2978, 105, 42, 95, 'Long'],[5, 1, 3, 1, 1, 4, 2960, 2977, 184, 34, 96, 'Distance'],[5, 1, 3, 1, 1, 5, 3160, 2977, 117, 43, 96, '(Over'],[5, 1, 3, 1, 1, 6, 3290, 2977, 73, 34, 96, '200'],[5, 1, 3, 1, 1, 7, 3381, 2977, 123, 43, 94, 'Miles)'],[5, 1, 4, 1, 1, 1, 1528, 3053, 116, 34, 94, 'Class'],[5, 1, 4, 1, 1, 2, 2862, 3055, 167, 43, 95, 'Liability'],[5, 1, 4, 1, 1, 3, 3276, 3055, 115, 43, 95, 'Phys.'],[5, 1, 4, 1, 1, 4, 3410, 3056, 105, 33, 95, 'Dam.'],[5, 1, 4, 1, 2, 1, 2878, 3129, 136, 34, 96, 'Factor'],[5, 1, 4, 1, 2, 2, 3329, 3129, 136, 34, 96, 'Factor'],[5, 1, 5, 1, 1, 1, 1508, 3207, 157, 34, 95, 'Service'],[5, 1, 5, 1, 1, 2, 2033, 3207, 181, 34, 90, 'Non-fleet'],[5, 1, 5, 1, 2, 1, 2076, 3259, 96, 34, 95, 'Fleet'],[5, 1, 5, 2, 1, 1, 731, 3335, 107, 43, 95, 'Light'],[5, 1, 5, 2, 1, 2, 853, 3335, 145, 34, 95, 'Trucks'],[5, 1, 5, 2, 1, 3, 2033, 3337, 181, 34, 90, 'Non-fleet'],[5, 1, 5, 2, 2, 1, 709, 3387, 35, 43, 93, '(0'],[5, 1, 5, 2, 2, 2, 760, 3406, 13, 4, 95, '-'],[5, 1, 5, 2, 2, 3, 791, 3387, 132, 39, 95, '10,000'],[5, 1, 5, 2, 2, 4, 940, 3387, 79, 34, 95, 'Lbs.'],[5, 1, 5, 2, 2, 5, 2076, 3389, 96, 34, 95, 'Fleet'],[5, 1, 5, 3, 1, 1, 786, 3465, 157, 43, 83, 'G.V.W.)'],[5, 1, 5, 3, 1, 2, 1459, 3467, 254, 34, 96, 'Commercial'],[5, 1, 5, 3, 1, 3, 2033, 3467, 181, 34, 87, 'Non-fleet'],[5, 1, 5, 3, 2, 1, 2076, 3519, 96, 34, 95, 'Fleet'],[5, 1, 6, 1, 1, 1, 3020, 3597, 295, 34, 90, 'ZONE-RATED']]
 
-    box_terms = get_terms_in_boxes(cells, pdf_info)
+    # box_terms = get_terms_in_boxes(cells, pdf_info)
     
-    for key in box_terms:
-        print('----------------box---terms-------------------------')
-        print(key)
-        print(out_put[key])
-        print(box_terms[key])
+    # for key in box_terms:
+    #     print('----------------box---terms-------------------------')
+    #     print(key)
+    #     print(out_put[key])
+    #     print(box_terms[key])
 
 
-    # ---------------------------------------------------------box map--------------------------------------
-    box_map = get_box_map(cells)
-    for key in box_map:
-        print('--------------------------------------------------------box---align-------------------------------------------------')
-        print(key)
-        print('------------------------------------------------')
-        print(out_put[key])
-        print('-------------------------------------------------')
-        for box in box_map[key]:
-            print('---------')
-            print(out_put[tuple(box[0])])
-            print(box[1])
+    # # ---------------------------------------------------------box map--------------------------------------
+    # box_map = get_box_map(cells)
+    # for key in box_map:
+    #     print('--------------------------------------------------------box---align-------------------------------------------------')
+    #     print(key)
+    #     print('------------------------------------------------')
+    #     print(out_put[key])
+    #     print('-------------------------------------------------')
+    #     for box in box_map[key]:
+    #         print('---------')
+    #         print(out_put[tuple(box[0])])
+    #         print(box[1])
 
 
 
-    print( int(time.time() - l_t ))
+    # print( int(time.time() - l_t ))
+
+    
+    get_tbl_frm_img(file, pdf_info)
+    print('-----------------------------------------------------------------------------')
+    print('-----------------------------------Boxes-------------------------------------')
+    print('------------------------------------------------------------------------------')
+    print(pdf_info.Boxes)
+    print('-----------------------------------------------------------------------------')
+    print('-----------------------------------cells-------------------------------------')
+    print('------------------------------------------------------------------------------')
+    print(pdf_info.cells)
+    print('-----------------------------------------------------------------------------')
+    print('-----------------------------------box_terms-------------------------------------')
+    print('------------------------------------------------------------------------------')
+    print(pdf_info.box_terms)
+    print('-----------------------------------------------------------------------------')
+    print('-----------------------------------box_map-------------------------------------')
+    print('------------------------------------------------------------------------------')
+    print(pdf_info.box_map)

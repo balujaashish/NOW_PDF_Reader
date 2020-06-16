@@ -1,7 +1,7 @@
 import unittest
-from extract_currency_frm_pdf import Extract_Currency_Frm_PDF
-from PDF_information import PDF_Information
-from prepare_data_pdf import Prepare_Data_PDF
+from PDF_OCR_Reader.extract_currency_frm_pdf import Extract_Currency_Frm_PDF
+from PDF_OCR_Reader.PDF_information import PDF_Information
+from PDF_OCR_Reader.prepare_data_pdf import Prepare_Data_PDF
 
 class TestExtractCurrencyFrmPDF(unittest.TestCase):
 
@@ -189,8 +189,16 @@ class TestExtractCurrencyFrmPDF(unittest.TestCase):
         self.assertEqual(PDF_Info.Currency,[])
 
         # print(PDF_Info.Currency)
+    
+    def test_search_currency_in_string(self):
+        l_str = '$10,000'
+        out_put = self.x.search_currency_in_string(l_str)
+        print(out_put)
         
 
 
 if __name__ == "__main__":
-    unittest.main()
+    # unittest.main()
+    TECFP = TestExtractCurrencyFrmPDF()
+    TECFP.setUp()
+    TECFP.test_search_currency_in_string()

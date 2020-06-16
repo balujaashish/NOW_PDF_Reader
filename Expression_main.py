@@ -2,7 +2,6 @@ from PDF_OCR_Reader.extract_information_frm_pdf import Extract_Information_Frm_P
 from Expression.expression import Expression
 from Expression.supporting_data import Supporting_Data
 
-
 def get(p_expressions, FilePath, p_supporting_data):
     """
         check if any term in list1 aligns with any term in list2.
@@ -21,6 +20,17 @@ def get(p_expressions, FilePath, p_supporting_data):
     p_supporting_data[(0, 0, 0,'keywords')] = keyword_list
 
     pdf_info = get_pdf_info(FilePath, p_supporting_data)
+
+    print("----------------------------------------------------------")
+    print("--------------------keywords---------------------------------")
+    print("----------------------------------------------------------")
+    print(pdf_info.keywords)
+    print("----------------------------------------------------------")
+    print("--------------------clean data---------------------------------")
+    print("----------------------------------------------------------")
+    print(pdf_info.cleanData)
+    print(len(pdf_info.cleanData))
+
     supporting_data = get_supporting_data(p_supporting_data)
     attributes = get_attributes()
 
@@ -115,20 +125,20 @@ def get_attributes():
     
 
 if __name__ == "__main__":
-    expressions = ['[ORDER NO]=[List(Purchase Order Number)]', '[Amount]=[Currency]', '[QTY]=[Number]', '[Issued on]=[Date]', '[]=[List(Purchase Order Number)]']
+    expressions = ['[Policy Number]=[List(Purchase Order Number)]', '[Amount]=[Currency]', '[QTY]=[Number]', '[Issued on]=[Date]', '[]=[List(Policy Number list)]', '[Property Damage]=[Currency]']
 
-    l_dict =  {(2000010, 838, 8389,'Purchase Order Number'): [[9829,939, 883,'6000567751'],[9829,939,921,'fhc']],(2000011, 839, 8390,'Addresses'):[[9830,940, 884,'BOARDWALKTECH, INC 10050 N. Wolfe Rd. #276 Cupertino , CA 95014 United States'], [9831,941, 885,'Teva Bazel 5 5 Bazel St. 4951033 Petah Tikva Israel']]}
+    l_dict =  {(2000010, 838, 8389,'Policy Number list'): [[9829,939, 883,'6000567751'],[9829,939,921,'ANI10002000']],(2000011, 839, 8390,'Addresses'):[[9830,940, 884,'BOARDWALKTECH, INC 10050 N. Wolfe Rd. #276 Cupertino , CA 95014 United States'], [9831,941, 885,'Teva Bazel 5 5 Bazel St. 4951033 Petah Tikva Israel']]}
 
     # FilePath = "C:/Users/Win10Office2016/Desktop/Python-Proj/NOW-PDF_Reader/Test_Files/"
     # FilePath = FilePath+"Order No 6000567751.pdf"
 
 
     FilePath = "C:/Users/Win10Office2016/Desktop/test files/ANI/"
-    FilePath = FilePath+"Class_Code_Light_Trucks_Long_Distance_Radius_200.pdf"
+    FilePath = FilePath+"Auto_Policy_Landscaping_Inc_2020.pdf"
 
-    # get(expressions, FilePath, l_dict)
+    get(expressions, FilePath, l_dict)
 
-    pdf_info = get_pdf_info(FilePath, l_dict)
+    # pdf_info = get_pdf_info(FilePath, l_dict)
 
 
 
@@ -218,11 +228,11 @@ if __name__ == "__main__":
     # print("----------------------------------------------------------")
     # print(pdf_info.decimals)
 
-    print("----------------------------------------------------------")
-    print("--------------------clean data---------------------------------")
-    print("----------------------------------------------------------")
-    for term in pdf_info.rawData[0]:
-        print(term)
+    # print("----------------------------------------------------------")
+    # print("--------------------clean data---------------------------------")
+    # print("----------------------------------------------------------")
+    # # for term in pdf_info.rawData[0]:
+    # #     print(term)
     # print(pdf_info.cleanData)
 
 

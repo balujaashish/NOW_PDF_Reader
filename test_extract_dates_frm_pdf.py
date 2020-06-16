@@ -1,7 +1,7 @@
 import unittest
-from extract_dates_frm_pdf import Extract_Dates_Frm_PDF
-from PDF_information import PDF_Information
-from prepare_data_pdf import Prepare_Data_PDF
+from PDF_OCR_Reader.extract_dates_frm_pdf import Extract_Dates_Frm_PDF
+from PDF_OCR_Reader.PDF_information import PDF_Information
+from PDF_OCR_Reader.prepare_data_pdf import Prepare_Data_PDF
 
 class TestExtractDatesFrmPDF(unittest.TestCase):
 
@@ -66,11 +66,17 @@ class TestExtractDatesFrmPDF(unittest.TestCase):
         print(PDF_Info.PDF_Lines)
         print(PDF_Info.dates)
 
+    def test_search_dates_in_str(self):
+        l_str = 'hi 11-19-2019'
+        out_put =self.x.search_dates_in_str(l_str)
+        print(out_put)
 
+        
+       
 
 
 if __name__ == "__main__":
     # unittest.main()
     EDF_pdf = TestExtractDatesFrmPDF()
     EDF_pdf.setUp()
-    EDF_pdf.test_extract_dates_frm_pdf()
+    EDF_pdf.test_search_dates_in_str()
